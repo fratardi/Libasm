@@ -2,7 +2,7 @@
 NAME = libasm.a
 
 # Fichiers assembleur
-ASM_FILES = ft_strcpy.s ft_strlen.s  ft_strcmp.s ft_write.s ft_read.s ft_strdup.s
+ASM_FILES = ft_swap.s ft_strcpy.s ft_strlen.s  ft_strcmp.s ft_write.s ft_read.s ft_strdup.s
 
 # Fichiers objets
 OBJ_FILES = $(ASM_FILES:.s=.o)

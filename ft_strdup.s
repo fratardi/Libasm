@@ -13,9 +13,9 @@ ft_strdup:
     ; Allouer de la mémoire pour la nouvelle chaîne (+1 pour le caractère nul)
     inc rcx           ; RCX = RCX + 1
     mov rdi, rcx      ; RDI = nouvelle taille pour malloc
-    call malloc       ; Allouer de la mémoire
-    test rax, rax     ; Vérifier si malloc a réussi
-    jz malloc_fail    ; Aller à malloc_fail si RAX est NULL
+    call malloc       ; Allouer de la mémoire avec comme remier parametre rdi
+    test rax, rax     ; Vérifier si malloc a réussi rax etant la valeur de retour du malloc
+    jz malloc_fail    ; Aller à malloc_fail si RAX est NULL (Flag de retour de test)
 
     ; RAX contient maintenant le pointeur vers la nouvelle mémoire
     mov rdi, rax      ; RDI = pointeur de destination (nouvelle mémoire)
@@ -28,12 +28,11 @@ copy_loop:
     inc rcx             ; Incrémenter l'index de caractère
     test al, al         ; Vérifier si le caractère est le caractère nul
     jnz copy_loop       ; Continuer tant que le caractère n'est pas nul jump not zero
+						; Finir et retourner le nouveau pointeur
+    mov rax, rdi      	; RAX = pointeur vers la nouvelle chaîne
+    ret               	; Retourner avec le nouveau pointeur (rax)
 
-    ; Finir et retourner le nouveau pointeur
-    mov rax, rdi      ; RAX = pointeur vers la nouvelle chaîne
-    ret               ; Retourner avec le nouveau pointeur
-
-malloc_fail:
-    xor rax, rax      ; Retourner NULL en cas d'échec de malloc
-    pop rsi           ; Nettoyer la pile (restaurer RSI)
-    ret               ; Retourner
+malloc_fail:	
+    xor rax, rax      	; Retourner NULL en cas d'échec de malloc
+    pop rsi           	; Nettoyer la pile (restaurer RSI)
+    ret               	; Retourner rax qui est egal a zero

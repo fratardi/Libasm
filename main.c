@@ -1,11 +1,15 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <strings.h>
-// // Déclaration des fonctions asm
- char *ft_write(int fd, void * buf, int len);
- char * ft_strcpy(char *src, char * dest);
-int ft_strlen(char  * str);
-int  test_strcpy(char *src, char *dest)    {
+
+void    ft_swap(unsigned int *a, unsigned int *b);
+char    *ft_strdup(const char *s);  
+char    *ft_write(int fd, void *buf, int len);
+char    *ft_strcpy(char *src, char * dest);
+int     ft_strlen(char  * str);
+
+
+int test_strcpy(char *src, char *dest) {
     ft_strcpy(dest, src);
     printf("Test strcpy----------------------\n");
     printf("Source:      [%s]\n", src);
@@ -13,16 +17,20 @@ int  test_strcpy(char *src, char *dest)    {
     return 0;
 } 
 
-int test_strlen(char * str){
+int test_strlen(char * str) {
     printf("Test strlen----------------------\n");
     printf("Src Len %d \n", ft_strlen(str));
 }
 
-extern char *ft_strdup(const char *s);  // Assurez-vous que la déclaration est correcte
 
 int main() {
     char *src = "Test string2";
+    unsigned int  a = 0xFF00000A;
+    unsigned int b = 0xA00000FF;
 
+    printf("[a]=[%x] [b]=[%x] \n", a, b);
+    ft_swap(&a , &b);
+    printf("[a]=[%x] [b]=[%x] \n", a, b );
     char *dup = ft_strdup(src);
     if (dup != NULL) {
         test_strcpy(src, dup);

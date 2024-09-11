@@ -1,86 +1,84 @@
-L'assembleur, en particulier dans le contexte de l'architecture x86_64, utilise un ensemble d'instructions qui sont des commandes élémentaires directement exécutées par le processeur. Ces instructions permettent de manipuler les registres, d'effectuer des opérations arithmétiques et logiques, de gérer la mémoire, de contrôler le flux d'exécution, et plus encore. Je vais te donner un aperçu des principales catégories d'instructions en assembleur, ainsi que quelques exemples pour chacune.
+### 1. **Instructions de transfert de donnees**
 
-### 1. **Instructions de transfert de données**
+Ces instructions deplacent des donnees entre les registres, la memoire et les constantes immediates.
 
-Ces instructions déplacent des données entre les registres, la mémoire et les constantes immédiates.
-
-- **`mov`** : Déplace des données d'une source vers une destination.
+- **`mov`** : Deplace des donnees d'une source vers une destination.
   ```asm
   mov rax, rbx     ; rax = rbx
-  mov [rax], rbx   ; déplace la valeur de rbx vers l'adresse pointée par rax
+  mov [rax], rbx   ; deplace la valeur de rbx vers l'adresse pointee par rax
   mov rax, 10      ; rax = 10
   ```
 - **`push`** : Empile une valeur sur la pile.
   ```asm
   push rax         ; empile rax sur la pile
   ```
-- **`pop`** : Dépile une valeur de la pile.
+- **`pop`** : Depile une valeur de la pile.
   ```asm
-  pop rbx          ; dépile la valeur au sommet de la pile dans rbx
+  pop rbx          ; depile la valeur au sommet de la pile dans rbx
   ```
-- **`lea`** : Charge l'adresse effective d'une expression mémoire dans un registre.
+- **`lea`** : Charge l'adresse effective d'une expression memoire dans un registre.
   ```asm
   lea rax, [rbx+8] ; rax = adresse effective de rbx + 8
   ```
 
-### 2. **Instructions arithmétiques**
+### 2. **Instructions arithmetiques**
 
-Ces instructions effectuent des opérations mathématiques.
+Ces instructions effectuent des operations mathematiques.
 
-- **`add`** : Additionne deux opérandes.
+- **`add`** : Additionne deux operandes.
   ```asm
   add rax, rbx     ; rax += rbx
   ```
-- **`sub`** : Soustrait un opérande d'un autre.
+- **`sub`** : Soustrait un operande d'un autre.
   ```asm
   sub rax, 10      ; rax -= 10
   ```
-- **`mul`** : Multiplie les registres (multiplication non signée).
+- **`mul`** : Multiplie les registres (multiplication non signee).
   ```asm
   mul rbx          ; rdx:rax = rax * rbx
   ```
-- **`imul`** : Multiplie les registres (multiplication signée).
+- **`imul`** : Multiplie les registres (multiplication signee).
   ```asm
-  imul rbx         ; rdx:rax = rax * rbx (signé)
+  imul rbx         ; rdx:rax = rax * rbx (signe)
   ```
-- **`div`** : Divise rax par l'opérande spécifié (division non signée).
+- **`div`** : Divise rax par l'operande specifie (division non signee).
   ```asm
   div rbx          ; rax = rax / rbx, rdx = rax % rbx
   ```
-- **`idiv`** : Divise rax par l'opérande spécifié (division signée).
+- **`idiv`** : Divise rax par l'operande specifie (division signee).
   ```asm
-  idiv rbx         ; rax = rax / rbx (signé), rdx = rax % rbx
+  idiv rbx         ; rax = rax / rbx (signe), rdx = rax % rbx
   ```
 
 ### 3. **Instructions logiques**
 
 Ces instructions permettent de manipuler des bits.
 
-- **`and`** : Effectue un ET logique bit à bit.
+- **`and`** : Effectue un ET logique bit a bit.
   ```asm
   and rax, rbx     ; rax &= rbx
   ```
-- **`or`** : Effectue un OU logique bit à bit.
+- **`or`** : Effectue un OU logique bit a bit.
   ```asm
   or rax, rbx      ; rax |= rbx
   ```
-- **`xor`** : Effectue un OU exclusif logique bit à bit.
+- **`xor`** : Effectue un OU exclusif logique bit a bit.
   ```asm
-  xor rax, rax     ; rax = 0 (efficace pour mettre à zéro un registre)
+  xor rax, rax     ; rax = 0 (efficace pour mettre a zero un registre)
   ```
 - **`not`** : Inverse tous les bits.
   ```asm
   not rax          ; rax = ~rax
   ```
-- **`shl`** / **`sal`** : Décale les bits vers la gauche (équivalent à une multiplication par 2).
+- **`shl`** / **`sal`** : Decale les bits vers la gauche (equivalent a une multiplication par 2).
   ```asm
   shl rax, 1       ; rax <<= 1
   ```
-- **`shr`** : Décale les bits vers la droite (division sans signe).
+- **`shr`** : Decale les bits vers la droite (division sans signe).
   ```asm
   shr rax, 1       ; rax >>= 1
   ```
-- **`sar`** : Décale les bits vers la droite (division avec signe).
+- **`sar`** : Decale les bits vers la droite (division avec signe).
   ```asm
   sar rax, 1       ; rax >>= 1 (avec signe)
   ```
@@ -93,34 +91,34 @@ Ces instructions comparent deux valeurs.
   ```asm
   cmp rax, rbx     ; compare rax et rbx   si egal flag 1 sinon flag 0 
   ```
-- **`test`** : Effectue un `AND` logique et met à jour les drapeaux sans stocker le résultat.
+- **`test`** : Effectue un `AND` logique et met a jour les drapeaux sans stocker le resultat.
   ```asm
-  test rax, rax    ; vérifie si rax est zéro
+  test rax, rax    ; verifie si rax est zero
   ```
 
 ### 5. **Instructions de contrôle de flux**
 
-Ces instructions contrôlent l'exécution du programme, comme les sauts conditionnels et inconditionnels.
+Ces instructions contrôlent l'execution du programme, comme les sauts conditionnels et inconditionnels.
 
 - **`jmp`** : Saut inconditionnel vers une autre instruction.
   ```asm
-  jmp label        ; saute à l'étiquette "label"
+  jmp label        ; saute a l'etiquette "label"
   ```
-- **`je`** / **`jz`** : Saut si égalité / zéro.
+- **`je`** / **`jz`** : Saut si egalite / zero.
   ```asm
-  je label         ; saute à "label" si la dernière comparaison était égale
+  je label         ; saute a "label" si la derniere comparaison etait egale
   ```
-- **`jne`** / **`jnz`** : Saut si non égal / non zéro.
+- **`jne`** / **`jnz`** : Saut si non egal / non zero.
   ```asm
-  jne label        ; saute à "label" si la dernière comparaison n'était pas égale
+  jne label        ; saute a "label" si la derniere comparaison n'etait pas egale
   ```
-- **`jg`** / **`jnle`** : Saut si supérieur (signé).
+- **`jg`** / **`jnle`** : Saut si superieur (signe).
   ```asm
-  jg label         ; saute à "label" si la valeur est supérieure (signé)
+  jg label         ; saute a "label" si la valeur est superieure (signe)
   ```
-- **`jl`** / **`jnge`** : Saut si inférieur (signé).
+- **`jl`** / **`jnge`** : Saut si inferieur (signe).
   ```asm
-  jl label         ; saute à "label" si la valeur est inférieure (signé)
+  jl label         ; saute a "label" si la valeur est inferieure (signe)
   ```
 - **`call`** : Appel de fonction.
   ```asm
@@ -128,7 +126,7 @@ Ces instructions contrôlent l'exécution du programme, comme les sauts conditio
   ```
 - **`ret`** : Retourne d'une fonction.
   ```asm
-  ret              ; retourne à l'appelant
+  ret              ; retourne a l'appelant
   ```
 
 ### 6. **Instructions de gestion de la pile**
@@ -139,102 +137,108 @@ Ces instructions manipulent la pile pour sauvegarder et restaurer des contextes.
   ```asm
   push rax         ; empile rax sur la pile
   ```
-- **`pop`** : Dépile une valeur de la pile.
+- **`pop`** : Depile une valeur de la pile.
   ```asm
-  pop rbx          ; dépile la valeur au sommet de la pile dans rbx
+  pop rbx          ; depile la valeur au sommet de la pile dans rbx
   ```
 - **`pushf`** : Empile le registre des drapeaux sur la pile.
   ```asm
   pushf            ; empile les drapeaux EFLAGS sur la pile
   ```
-- **`popf`** : Dépile le registre des drapeaux depuis la pile.
+- **`popf`** : Depile le registre des drapeaux depuis la pile.
   ```asm
   popf             ; restaure les drapeaux EFLAGS depuis la pile
   ```
 
-### 7. **Instructions spécifiques au système**
+### 7. **Instructions specifiques au systeme**
 
-Ces instructions interagissent avec le système d'exploitation ou le matériel.
+Ces instructions interagissent avec le systeme d'exploitation ou le materiel.
 
-- **`syscall`** : Exécute un appel système (Linux).
+- **`syscall`** : Execute un appel systeme (Linux).
   ```asm
-  mov rax, 1       ; numéro du syscall pour write
+  mov rax, 1       ; numero du syscall pour write
   mov rdi, 1       ; file descriptor 1 (stdout) dans le premier parametre
   mov rsi, msg     ; pointeur vers le message
   mov rdx, len     ; longueur du message
-  syscall          ; exécuter le syscall
+  syscall          ; executer le syscall
   ```
-- **`int 0x80`** : Exécute une interruption système (méthode plus ancienne que `syscall`).
+- **`int 0x80`** : Execute une interruption systeme (methode plus ancienne que `syscall`).
   ```asm
-  int 0x80         ; exécuter un appel système (Linux) interrupt 
+  int 0x80         ; executer un appel systeme (Linux) interrupt 
   ```
 
-### 8. **Instructions spéciales**
+### 8. **Instructions speciales**
 
-Ces instructions incluent des opérations de manipulation de bits ou des commandes de synchronisation pour les processeurs multicœurs.
+Ces instructions incluent des operations de manipulation de bits ou des commandes de synchronisation pour les processeurs multicœurs.
 
-- **`nop`** : Aucune opération, passe simplement à l'instruction suivante.
+- **`nop`** : Aucune operation, passe simplement a l'instruction suivante.
   ```asm
   nop              ; ne fait rien
   ```
-- **`hlt`** : Arrête le processeur jusqu'à la prochaine interruption.
+- **`hlt`** : Arrête le processeur jusqu'a la prochaine interruption.
   ```asm
   hlt              ; arrête le processeur
   ```
-### 9. **Charger syscall et lancer  
+##  Charger syscall et lancer  
   mov rax, 1; 1 etant la valeur du syscall write
   syscall; 
 
   size_t write(int fd`rdi`, const void *buf`rsi`, size_t count)`rdx`;
 
-## Registres Généraux
 
-Les registres généraux en x86_64 sont utilisés pour stocker des données, des adresses, ou des résultats d'opérations. Voici une description des principaux registres :
+## Conventions d'Appel des Fonctions et arguments
+
+En x86_64, les arguments des fonctions sont passes via des registres selon les conventions suivantes :
+
+1. **Premier argument** : `rdi` 
+2. **Deuxieme argument** : `rsi`
+3. **Troisieme argument** : `rdx`
+4. **Quatrieme argument** : `rcx`
+5. **Cinquieme argument** : `r8`
+6. **Sixieme argument** : `r9`
+7. **Valeur de retour et syscall** : `rax` 
+
+
+## Registres Generaux
+
+Les registres generaux en x86_64 sont utilises pour stocker des donnees, des adresses, ou des resultats d'operations. Voici une description des principaux registres :
 
 ### Registres 64 bits
 
-- **`rax`** : Accumulateur principal utilisé pour les opérations arithmétiques, de multiplication, et de division.
-- **`rbx`** : Utilisé souvent pour stocker des pointeurs ou des adresses.
-- **`rcx`** : Utilisé comme compteur pour les boucles et les opérations répétitives.
-- **`rdx`** : Utilisé avec `rax` pour les opérations arithmétiques nécessitant deux registres, comme les multiplications et les divisions.
-- **`rsi`** : Source Index pour les opérations de copie de données ou d'autres manipulations de chaîne.
-- **`rdi`** : Destination Index pour les opérations de copie de données ou d'autres manipulations de chaîne.
-- **`rbp`** : Base Pointer, généralement utilisé pour pointer vers le début du cadre de pile d'une fonction.
-- **`rsp`** : Stack Pointer, pointe vers le sommet de la pile. Utilisé pour gérer les appels de fonctions et la pile en général.
-- **`r8` à `r15`** : Registres supplémentaires pour stocker des données ou des adresses.
+- **`rax`** : Accumulateur principal utilise pour les operations arithmetiques, de multiplication, et de division.
+- **`rbx`** : Utilise souvent pour stocker des pointeurs ou des adresses.
+- **`rcx`** : Utilise comme compteur pour les boucles et les operations repetitives.
+- **`rdx`** : Utilise avec `rax` pour les operations arithmetiques necessitant deux registres, comme les multiplications et les divisions.
+- **`rsi`** : Source Index pour les operations de copie de donnees ou d'autres manipulations de chaine.
+- **`rdi`** : Destination Index pour les operations de copie de donnees ou d'autres manipulations de chaine.
+- **`rbp`** : Base Pointer, generalement utilise pour pointer vers le debut du cadre de pile d'une fonction.
+- **`rsp`** : Stack Pointer, pointe vers le sommet de la pile. Utilise pour gerer les appels de fonctions et la pile en general.
+- **`r8` a `r15`** : Registres supplementaires pour stocker des donnees ou des adresses.
+
+
+
 
 ### Registres 32 bits
 
 Chaque registre 64 bits a une version 32 bits :
-- **`eax`** : Représente les 32 bits inférieurs de `rax`.
-- **`ebx`** : Représente les 32 bits inférieurs de `rbx`.
-- **`ecx`** : Représente les 32 bits inférieurs de `rcx`.
-- **`edx`** : Représente les 32 bits inférieurs de `rdx`.
-- **`esi`** : Représente les 32 bits inférieurs de `rsi`.
-- **`edi`** : Représente les 32 bits inférieurs de `rdi`.
-- **`ebp`** : Représente les 32 bits inférieurs de `rbp`.
-- **`esp`** : Représente les 32 bits inférieurs de `rsp`.
+- **`eax`** : Represente les 32 bits inferieurs de `rax`.
+- **`ebx`** : Represente les 32 bits inferieurs de `rbx`.
+- **`ecx`** : Represente les 32 bits inferieurs de `rcx`.
+- **`edx`** : Represente les 32 bits inferieurs de `rdx`.
+- **`esi`** : Represente les 32 bits inferieurs de `rsi`.
+- **`edi`** : Represente les 32 bits inferieurs de `rdi`.
+- **`ebp`** : Represente les 32 bits inferieurs de `rbp`.
+- **`esp`** : Represente les 32 bits inferieurs de `rsp`.
 
 ### Registres 16 bits et 8 bits
 
-Les registres 32 bits peuvent être subdivisés en registres de 16 bits et 8 bits :
-- **`ax`** : Représente les 16 bits inférieurs de `eax`.
-- **`al`** : Représente les 8 bits les plus bas de `ax`.
-- **`ah`** : Représente les 8 bits les plus élevés de `ax`.
+Les registres 32 bits peuvent être subdivises en registres de 16 bits et 8 bits :
+- **`ax`** : Represente les 16 bits inferieurs de `eax`.
+- **`al`** : Represente les 8 bits les plus bas de `ax`.
+- **`ah`** : Represente les 8 bits les plus eleves de `ax`.
 
-## Conventions d'Appel des Fonctions
 
-En x86_64, les arguments des fonctions sont passés via des registres selon les conventions suivantes :
-
-1. **Premier argument** : `rdi` 
-2. **Deuxième argument** : `rsi`
-3. **Troisième argument** : `rdx`
-4. **Quatrième argument** : `rcx`
-5. **Cinquième argument** : `r8`
-6. **Sixième argument** : `r9`
-7. **Valeur de retour et syscall** : `rax` 
-
-Le résultat d'une fonction est généralement retourné dans le registre `rax` (ou `eax` pour les entiers 32 bits).
+Le resultat d'une fonction est generalement retourne dans le registre `rax` (ou `eax` pour les entiers 32 bits).
 
 
 
@@ -247,60 +251,65 @@ Le résultat d'une fonction est généralement retourné dans le registre `rax` 
 
 
 
-Les registres `rax` et `eax` en x86_64 sont effectivement liés, mais ils ne sont pas physiquement séparés dans la mémoire ; ils représentent simplement différentes parties du même registre physique.
+Les registres `rax` et `eax` en x86_64 sont effectivement lies, mais ils ne sont pas physiquement separes dans la memoire ; ils representent simplement differentes parties du même registre physique.
 
 ### Relation entre `rax`, `eax`, `ax`, et `al`
 
-- **`rax` (64 bits)** : C'est le registre de 64 bits utilisé pour les opérations arithmétiques, de multiplication, et de division. 
-- **`eax` (32 bits)** : C'est la partie basse de `rax`, c'est-à-dire les 32 bits les plus bas. Lorsqu'on manipule `eax`, cela affecte les 32 bits les plus bas de `rax`, mais laisse les bits supérieurs intacts.
-- **`ax` (16 bits)** : C'est la partie basse de `eax`, c'est-à-dire les 16 bits les plus bas. Manipuler `ax` affecte les 16 bits les plus bas de `eax` et par conséquent les bits les plus bas de `rax`.
-- **`al` (8 bits)** : C'est la partie basse de `ax`, donc les 8 bits les plus bas. Manipuler `al` affecte les 8 bits les plus bas de `ax`, ce qui a également un effet sur `rax`.
-
-### Comment Cela Fonctionne
-
-En termes de registre physique :
-- Le registre `rax` est un registre de 64 bits qui est composé de plusieurs parties : 
-  - Les 8 bits les plus bas de `rax` sont `al`.
-  - Les 16 bits les plus bas de `rax` sont `ax`.
-  - Les 32 bits les plus bas de `rax` sont `eax`.
-  - Les 64 bits de `rax` incluent toutes les parties précédentes.
-
-Cela signifie que :
-- **`rax`** est le registre complet.
-- **`eax`** est le registre de 32 bits situé dans les 32 bits les plus bas de `rax`.
-- **`ax`** est le registre de 16 bits situé dans les 16 bits les plus bas de `eax`.
-- **`al`** est le registre de 8 bits situé dans les 8 bits les plus bas de `ax`.
+- **`rax` (64 bits)** : C'est le registre de 64 bits utilise pour les operations arithmetiques, de multiplication, et de division. 
+- **`eax` (32 bits)** : C'est la partie basse de `rax`, c'est-a-dire les 32 bits les plus bas. Lorsqu'on manipule `eax`, cela affecte les 32 bits les plus bas de `rax`, mais laisse les bits superieurs intacts.
+- **`ax` (16 bits)** : C'est la partie basse de `eax`, c'est-a-dire les 16 bits les plus bas. Manipuler `ax` affecte les 16 bits les plus bas de `eax` et par consequent les bits les plus bas de `rax`.
+- **`al` (8 bits)** : C'est la partie basse de `ax`, donc les 8 bits les plus bas. Manipuler `al` affecte les 8 bits les plus bas de `ax`, ce qui a egalement un effet sur `rax`.
 
 ### Illustration
 
-Voici une vue simplifiée des registres :
+<img src="https://flint.cs.yale.edu/cs421/papers/x86-asm/x86-registers.png" alt="drawing" width="500"/>
 
-```
-64 bits (rax) = |   32 bits (eax) = |   16 bits (ax) = |   8 bits (al)  |
-  [   31 bits   ][  15 bits  ][  7 bits   ][  7 bits ]
-```
+### ici l'image est en 32 bits, rajouter le r a la place du  e  pour le 64 bits
 
-Quand on manipule un registre plus petit (`eax`, `ax`, `al`), les parties supérieures du registre plus grand (`rax`) restent inchangées.
+### Comment Cela Fonctionne
 
-### Exemple Pratique
+  - Le registre `rax` est un registre de 64 bits qui est compose de plusieurs parties : 
+  - Les 8 bits les plus bas de `rax` sont `al`.
+  - Les 16 bits les plus bas de `rax` sont `ax`.
+  - Les 32 bits les plus bas de `rax` sont `eax`.
+  - Les 64 bits de `rax` incluent toutes les parties precedentes.
 
-Si vous faites l'opération suivante en assembleur :
+Cela signifie que :
+- **`rax`** est le registre complet.
+- **`eax`** est le registre de 32 bits situe dans les 32 bits les plus bas de `rax`.
+- **`ax`** est le registre de 16 bits situe dans les 16 bits les plus bas de `eax`.
+- **`al`** est le registre de 8 bits situe dans les 8 bits les plus bas de `ax`.
+
+
+
+Quand on manipule un registre plus petit (`eax`, `ax`, `al`), les parties superieures du registre plus grand (`rax`) restent inchangees.
+
+### Exemple manipulaion 
+
+Si vous faites l'operation suivante en assembleur :
 
 ```asm
 mov eax, 0x12345678   ; met 0x12345678 dans eax
 mov al, 0xAB          ; met 0xAB dans al
 ```
 
-- `eax` va contenir `0x123456AB`, car `al` a écrasé les 8 bits les plus bas de `eax`.
-- `rax` va contenir `0x000000000123456AB`, les parties supérieures de `rax` restent inchangées, mais les 32 bits les plus bas ont été modifiés par `eax`.
+- `eax` va contenir `0x123456AB`, car `al` a ecrase les 8 bits les plus bas de `eax`.
+- `rax` va contenir `0x000000000123456AB`, les parties superieures de `rax` restent inchangees, mais les 32 bits les plus bas ont ete modifies par `eax`.
+
+```
+mov al, 0xEE 
+mov ah, 0xBB
+```
+-- `rax` va ressembler a `0x0000000001234BBEE`
+--`rax` 
 
 ### Conclusion
 
-Les registres `rax`, `eax`, `ax`, et `al` sont tous des vues différentes sur le même registre physique de 64 bits. Modifier l'un affecte les parties appropriées de ce registre en fonction de la taille du sous-registre. Ils ne sont pas physiquement séparés ; c'est une question de comment le processeur interprète et utilise les bits dans le registre.
+Les registres `rax`, `eax`, `ax`, et `al` sont tous des vues differentes sur le même registre physique de 64 bits. Modifier l'un affecte les parties appropriees de ce registre en fonction de la taille du sous-registre. Ils ne sont pas physiquement separes ; c'est une question de comment le processeur interprete et utilise les bits dans le registre.
 
 ## Exemple de Fonction d'Addition
 
-Voici un exemple de fonction en assembleur qui additionne deux entiers et retourne le résultat :
+Voici un exemple de fonction en assembleur qui additionne deux entiers et retourne le resultat :
 
 ```asm
 section .text
@@ -309,18 +318,18 @@ section .text
 add_two_integers:
     ; Arguments :
     ; edi - premier entier (int)
-    ; esi - deuxième entier (int)
+    ; esi - deuxieme entier (int)
 
     ; Effectuer l'addition
     mov eax, edi       ; Charger le premier entier (32 bits) dans eax
-    add eax, esi       ; Ajouter le deuxième entier (32 bits) à eax
+    add eax, esi       ; Ajouter le deuxieme entier (32 bits) a eax
 
-    ; Le résultat est maintenant dans eax
-    ret                ; Retourner le résultat (int)
+    ; Le resultat est maintenant dans eax
+    ret                ; Retourner le resultat (int)
 ```
 https://imada.sdu.dk/u/kslarsen/dm546/Material/IntelnATT.htm
 
-## Références
+## References
 
 - [Documentation NASM](https://www.nasm.us/xdoc/2.16.03/html/nasmdoc0.html)
 - [Intel x86-64 Architecture Programmer’s Manual](https://software.intel.com/content/www/us/en/develop/articles/intel-sdm.html)
@@ -331,4 +340,4 @@ https://imada.sdu.dk/u/kslarsen/dm546/Material/IntelnATT.htm
 
 ---
 
-Ce README fournit une vue d'ensemble des registres utilisés en x86_64 et des conventions d'appel des fonctions, ainsi qu'un exemple simple de fonction en assembleur.
+Ce README fournit une vue d'ensemble des registres utilises en x86_64 et des conventions d'appel des fonctions, ainsi qu'un exemple simple de fonction en assembleur.
