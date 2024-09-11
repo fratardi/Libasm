@@ -22,11 +22,10 @@ int test_strlen(char * str) {
     printf("Src Len %d \n", ft_strlen(str));
 }
 
-
 int main() {
     char *src = "Test string2";
-    unsigned int  a = 0xFF00000A;
-    unsigned int b = 0xA00000FF;
+    unsigned int    a =   0xDeADBEEF;
+    unsigned int    b =   0xc0DEF00D;
 
     printf("[a]=[%x] [b]=[%x] \n", a, b);
     ft_swap(&a , &b);

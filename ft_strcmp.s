@@ -1,12 +1,9 @@
 section .text
-global ft_strcmp
-
+    global ft_strcmp;   (int rax)ft_strcmp(char *s1 `rdi`, char *s2 `rsi`)
 ft_strcmp:
     xor rax, rax            ; RAX sert d'index pour les caracteres des chaînes init rax a 0
-
 something_more:
-    nop;                    ; Ne fais rien est n'est pas appele
-
+    nop;                    ; Ne fais rien est n'est pas appele no op
 loop:
     mov dl, [rdi + rax]     ; Charge le caractere courant de la premiere chaine rdi dans dl (partie basse de rdx) rdx64  edx 32 dx 16  dh 8 dl 8 
     mov dh, [rsi + rax]     ; Charge le caractere courant de la seconde chaîne rsi dans dh
@@ -16,12 +13,10 @@ loop:
     je ret_zero             ; Si flag = ZF (0)  jump a ret zero label   
     inc rax                 ; Incremente l'index pour passer au caractere suivant
     jmp loop                ; Continue la boucle
-
 realreturn: 
     sub dl, dh              ; Soustrait le caractere de la seconde chaîne du caractere de la premiere chaîne
     movsx rax, dl           ; etend le resultat a la taille de RAX avec signe
     ret                     ; Retourne rax
-
 ret_zero:
     xor rax, rax            ; Met RAX a zero
     ret                     ; Retourne rax

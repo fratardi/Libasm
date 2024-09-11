@@ -1,14 +1,10 @@
 section .text
-    global ft_strcpy
-
+    global ft_strcpy ; (void `rax`) ft_strcpy(char *dest`rdi`, char *src`rsi`) 
 ft_strcpy:
-    ; rdi: pointeur vers la destination (char *dest) (premier argument)
-    ; rsi: pointeur vers la source (const char *src) (econd argument)
     mov rax, rdi        ; sauvegarder l'adresse de destination dans rax
-
 copy_loop:
-    mov al, [rsi]       ; charger le byte pointé par rsi dans al  [] veux dire adresse pointeur
-    mov [rdi], al       ; copier ce byte à l'adresse pointée par rdi
+    mov al, [rsi]       ; charger le byte pointe par rsi dans al  (partie basse de rax )veux dire adresse pointeur
+    mov [rdi], al       ; copier ce byte à l'adresse pointee par rdi
     test al, al         ; tester si al est nul (fin de chaîne)
     jz copy_end         ; si  c'est nul, sortir de la boucle avec le jum zro si flag = 0 
     inc rsi             ; avancer le pointeur source

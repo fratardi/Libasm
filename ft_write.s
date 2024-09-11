@@ -1,7 +1,6 @@
 section .text
-    global ft_write
-
+    global ft_write;   (size_t `rax`)write(int fd`rdi`, const void *buf`rsi`, size_t count`rdx`)
 ft_write:
-    mov rax,  1;  size_t write(int fd`rdi`, const void *buf`rsi`, size_t count)`rdx`
+    mov rax,  1;
     syscall;
     ret;
