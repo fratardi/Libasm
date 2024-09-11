@@ -120,6 +120,13 @@ Ces instructions contrôlent l'execution du programme, comme les sauts condition
   ```asm
   jl label         ; saute a "label" si la valeur est inferieure (signe)
   ```
+
+- **`js`** : jump sign si neg (SF) Flag
+```asm
+  js label
+  (signe)
+```
+
 - **`call`** : Appel de fonction.
   ```asm
   call function    ; appel de la fonction "function"
@@ -185,6 +192,28 @@ Ces instructions incluent des operations de manipulation de bits ou des commande
 
   size_t write(int fd`rdi`, const void *buf`rsi`, size_t count)`rdx`;
 
+
+## Erreurs  
+
+qword 64
+```
+    call ___errno_location   ; Obtenir l'adresse de errno
+    mov qword [rax], rax     ; Stocker la valeur de l'erreur (64 bits) dans errno
+    mov rax, -1              ; Retourner -1 pour indiquer l'erreur
+```
+
+word 16
+```
+    call ___errno_location   ; Obtenir l'adresse de errno
+    mov word [rax], ax    ; Écrire 16 bits dans [rax]
+    mov rax, -1              ; Retourner -1 pour indiquer l'erreur
+```
+byte 8
+```
+    call ___errno_location   ; Obtenir l'adresse de errno
+    mov byte [rax], al    ; Écrire 8 bits dans [rax]
+    mov rax, -1              ; Retourner -1 pour indiquer l'erreur
+```
 
 ## Conventions d'Appel des Fonctions et arguments
 

@@ -1,28 +1,20 @@
-# Nom de la librairie
+# LibName
 NAME = libasm.a
-
-# Fichiers assembleur
 ASM_FILES = ft_swap.s ft_strcpy.s ft_strlen.s  ft_strcmp.s ft_write.s ft_read.s ft_strdup.s ft_bzero.s
-
-# Fichiers objets
+# Obj filesrule
 OBJ_FILES = $(ASM_FILES:.s=.o)
-
-# Flags NASM • You must write 64 bits ASM. Beware of the "calling convention".
 NASM_FLAGS = -f elf64   
+TEST_PROGRAM = program
 
-# Programme de test
-TEST_PROGRAM = main
-
-# Règle pour créer la librairie statique
+# Static lib rule
 $(NAME): $(OBJ_FILES)
 	ar rcs $(NAME) $(OBJ_FILES)
 
-# Règle pour compiler chaque fichier asm en fichier objet
-# You must compile your assembly code with nasm.
+# nasm .s to .o
 %.o: %.s
 	nasm $(NASM_FLAGS) $< -o $@
 
-# Règle pour compiler le programme de test
+# Test Rule
 program: $(NAME) main.o
 	gcc -no-pie -o $(TEST_PROGRAM) main.o -L. -lasm
 
@@ -43,3 +35,5 @@ fclean: clean
 
 # Recompiler à partir de zéro
 re: fclean all
+
+# .PHONY: all clean fclean re program
