@@ -8,12 +8,12 @@ something_more:
     nop;                    ; Placeholder, n'a pas d'effet pour l'instant
 
 loop:
-    mov dl, [rdi + rax]     ; Charge le caractère courant de la première chaîne
-    mov dh, [rsi + rax]     ; Charge le caractère courant de la seconde chaîne
-    cmp dl, dh              ; Compare les deux caractères chargés
-    jne realreturn          ; Si les caractères sont différents, aller à realreturn
-    test dl, dl             ; Vérifie si le caractère est le caractère nul (fin de chaîne)
-    je ret_zero             ; Si c'est le cas, retourne 0
+    mov dl, [rdi + rax]     ; Charge le caractère courant de la première chaîne rdi dans dl
+    mov dh, [rsi + rax]     ; Charge le caractère courant de la seconde chaîne rsi dans dh
+    cmp dl, dh              ; Compare les deux caractères chargés dans  dl(s1*) et dh(s2*) 
+    jne realreturn          ;regarde le cmp et jump not equal  Si les caractères sont différents, aller à realreturn
+    test dl, dl             ; test fais un and  et set le flag a ZF (zero flag)     Vérifie si le caractère est le caractère nul (fin de chaîne)
+    je ret_zero             ; Si flag = ZF (0)  jump a ret zero label   
     inc rax                 ; Incrémente l'index pour passer au caractère suivant
     jmp loop                ; Continue la boucle
 

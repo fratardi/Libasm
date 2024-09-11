@@ -91,7 +91,7 @@ Ces instructions comparent deux valeurs.
 
 - **`cmp`** : Compare deux valeurs.
   ```asm
-  cmp rax, rbx     ; compare rax et rbx
+  cmp rax, rbx     ; compare rax et rbx   si egal flag 1 sinon flag 0 
   ```
 - **`test`** : Effectue un `AND` logique et met à jour les drapeaux sans stocker le résultat.
   ```asm
@@ -159,14 +159,14 @@ Ces instructions interagissent avec le système d'exploitation ou le matériel.
 - **`syscall`** : Exécute un appel système (Linux).
   ```asm
   mov rax, 1       ; numéro du syscall pour write
-  mov rdi, 1       ; file descriptor 1 (stdout)
+  mov rdi, 1       ; file descriptor 1 (stdout) dans le premier parametre
   mov rsi, msg     ; pointeur vers le message
   mov rdx, len     ; longueur du message
   syscall          ; exécuter le syscall
   ```
 - **`int 0x80`** : Exécute une interruption système (méthode plus ancienne que `syscall`).
   ```asm
-  int 0x80         ; exécuter un appel système (Linux)
+  int 0x80         ; exécuter un appel système (Linux) interrupt 
   ```
 
 ### 8. **Instructions spéciales**
@@ -181,8 +181,11 @@ Ces instructions incluent des opérations de manipulation de bits ou des command
   ```asm
   hlt              ; arrête le processeur
   ```
+### 9. **Charger syscall et lancer  
+  mov rax, 1; 1 etant la valeur du syscall write
+  syscall; 
 
-
+  size_t write(int fd`rdi`, const void *buf`rsi`, size_t count)`rdx`;
 
 ## Registres Généraux
 
@@ -223,12 +226,13 @@ Les registres 32 bits peuvent être subdivisés en registres de 16 bits et 8 bit
 
 En x86_64, les arguments des fonctions sont passés via des registres selon les conventions suivantes :
 
-1. **Premier argument** : `rdi` (ou `edi` pour 32 bits)
-2. **Deuxième argument** : `rsi` (ou `esi` pour 32 bits)
-3. **Troisième argument** : `rdx` (ou `edx` pour 32 bits)
-4. **Quatrième argument** : `rcx` (ou `ecx` pour 32 bits)
-5. **Cinquième argument** : `r8` (ou `r8d` pour 32 bits)
-6. **Sixième argument** : `r9` (ou `r9d` pour 32 bits)
+1. **Premier argument** : `rdi` 
+2. **Deuxième argument** : `rsi`
+3. **Troisième argument** : `rdx`
+4. **Quatrième argument** : `rcx`
+5. **Cinquième argument** : `r8`
+6. **Sixième argument** : `r9`
+7. **Valeur de retour et syscall** : `rax` 
 
 Le résultat d'une fonction est généralement retourné dans le registre `rax` (ou `eax` pour les entiers 32 bits).
 
@@ -294,21 +298,6 @@ mov al, 0xAB          ; met 0xAB dans al
 
 Les registres `rax`, `eax`, `ax`, et `al` sont tous des vues différentes sur le même registre physique de 64 bits. Modifier l'un affecte les parties appropriées de ce registre en fonction de la taille du sous-registre. Ils ne sont pas physiquement séparés ; c'est une question de comment le processeur interprète et utilise les bits dans le registre.
 
-
-
-
-## Ordre des Syscalls
-
-- rax : Numéro du syscall.
-- rdi : Premier argument.
-- rsi : Deuxième argument.
-- rdx : Troisième argument.
-- r10 : Quatrième argument.
-- r8 : Cinquième argument.
-- r9 : Sixième argument.
-
-
-
 ## Exemple de Fonction d'Addition
 
 Voici un exemple de fonction en assembleur qui additionne deux entiers et retourne le résultat :
@@ -329,12 +318,16 @@ add_two_integers:
     ; Le résultat est maintenant dans eax
     ret                ; Retourner le résultat (int)
 ```
-
+https://imada.sdu.dk/u/kslarsen/dm546/Material/IntelnATT.htm
 
 ## Références
 
-- [Documentation NASM](https://www.nasm.us/)
+- [Documentation NASM](https://www.nasm.us/xdoc/2.16.03/html/nasmdoc0.html)
 - [Intel x86-64 Architecture Programmer’s Manual](https://software.intel.com/content/www/us/en/develop/articles/intel-sdm.html)
+
+- [Diff AT&T Intel](https://imada.sdu.dk/u/kslarsen/dm546/Material/IntelnATT.htm)
+- [x64 Cheatsheet](https://cs.brown.edu/courses/cs033/docs/guides/x64_cheatsheet.pdf)
+
 
 ---
 

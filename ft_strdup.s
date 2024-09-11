@@ -7,8 +7,8 @@ ft_strdup:
     push rdi          ; Sauvegarder RDI qui contient le pointeur de la chaîne source
 
     ; Appeler ft_strlen pour obtenir la longueur de la chaîne source
-    call ft_strlen    ; La chaîne source est déjà dans RDI
-    mov rcx, rax      ; RCX = longueur de la chaîne retournée par ft_strlen // register count
+    call ft_strlen    ; La chaîne source est déjà dans RDI le retour de ft_strlen va dans rax
+    mov rcx, rax      ; RCX = longueur de la chaîne retournée par ft_strlen pour reutiliser rax
 
     ; Allouer de la mémoire pour la nouvelle chaîne (+1 pour le caractère nul)
     inc rcx           ; RCX = RCX + 1
@@ -23,7 +23,7 @@ ft_strdup:
     xor rcx, rcx      ; RCX = 0, réinitialiser le compteur pour la boucle de copie
 
 copy_loop:
-    mov al, [rsi + rcx] ; Charger un caractère de la source
+    mov al, [rsi + rcx] ; Charger un caractère de la source a l'adresse pointeur [rsi + le compteur rcx]
     mov [rdi + rcx], al ; Écrire le caractère dans la destination
     inc rcx             ; Incrémenter l'index de caractère
     test al, al         ; Vérifier si le caractère est le caractère nul

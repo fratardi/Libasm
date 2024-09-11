@@ -2,13 +2,13 @@
 NAME = libasm.a
 
 # Fichiers assembleur
-ASM_FILES = ft_strcpy.asm ft_strlen.asm  ft_strcmp.asm ft_write.asm ft_read.asm ft_strdup.asm
+ASM_FILES = ft_strcpy.s ft_strlen.s  ft_strcmp.s ft_write.s ft_read.s ft_strdup.s
 
 # Fichiers objets
-OBJ_FILES = $(ASM_FILES:.asm=.o)
+OBJ_FILES = $(ASM_FILES:.s=.o)
 
-# Flags NASM
-NASM_FLAGS = -f elf64
+# Flags NASM • You must write 64 bits ASM. Beware of the "calling convention".
+NASM_FLAGS = -f elf64   
 
 # Programme de test
 TEST_PROGRAM = main
@@ -18,7 +18,8 @@ $(NAME): $(OBJ_FILES)
 	ar rcs $(NAME) $(OBJ_FILES)
 
 # Règle pour compiler chaque fichier asm en fichier objet
-%.o: %.asm
+# You must compile your assembly code with nasm.
+%.o: %.s
 	nasm $(NASM_FLAGS) $< -o $@
 
 # Règle pour compiler le programme de test
