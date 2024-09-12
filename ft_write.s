@@ -4,7 +4,7 @@ section .text
 ft_write:
 	mov rax,  1							;
 	syscall                     		;
-	test rax, rax						;
+	test rax, rax						; 
 	je syscall_error_handling    		;
 	ret									;
 syscall_error_handling:
