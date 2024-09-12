@@ -7,7 +7,9 @@ ft_read:
     js syscall_error_handling
     ret;
 syscall_error_handling:
-    call ___errno_location   ; Obtenir l'adresse de errno
-    mov qword [rax], rax     ; Stocker la valeur de l'erreur (64 bits) dans errno
-    mov rax, -1              ; Retourner -1 pour indiquer l'erreur
+    mov rbx , rax;
+    neg rax;
+    call ___errno_location wrt ..plt  ; Obtenir l'adresse de errno
+    mov [rax], ebx                      ; Stocker la valeur de l'erreur (64 bits) dans errno sur 32 c'est [eax], eax
+    mov rax, -1                      ; Retourner -1 pour indiquer l'erreur
     ret

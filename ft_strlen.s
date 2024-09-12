@@ -1,5 +1,5 @@
 section .text
-    global  ft_strlen; (size_t `rax`)ft_strlen(const char *s `rdi`) 
+    global  ft_strlen       ; (size_t `rax`)ft_strlen(const char *s `rdi`) 
 ft_strlen:
     xor rax, rax            ;Initialise   rax a zero  rax etant le compteur et la valeur de retour
 loop:

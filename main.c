@@ -2,12 +2,17 @@
 #include <stdlib.h>
 #include <strings.h>
 #include <errno.h>
+#include <unistd.h>
+#include <sys/types.h>
+#include <sys/stat.h>
+#include <fcntl.h>
+
 void     ft_swap(unsigned int *a, unsigned int *b);
 char     *ft_strdup(const char *s);  
 char     *ft_strcpy(char *dest, char *src);
 size_t   ft_strlen(const char  * str);
 size_t   ft_read(int fd, void *buf, int len);
-size_t   ft_write(int fd, void *buf, int len);
+ size_t   ft_write(int fd, void *buf, int len);
 
 
 
@@ -44,7 +49,10 @@ int main() {
         dup=NULL;
         printf("%s", dup);
         free(dup);
-        ft_write(1,"yolo\n",5);
+         ft_write(1,"yolo\n",5);
+    void * buf ;
+        read(1, buf,50);
+        
     } else {
         printf("Failed to duplicate string.\n");
     }

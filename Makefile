@@ -3,7 +3,7 @@ NAME = libasm.a
 ASM_FILES = ft_swap.s ft_strcpy.s ft_strlen.s  ft_strcmp.s ft_write.s ft_read.s ft_strdup.s ft_bzero.s
 # Obj filesrule
 OBJ_FILES = $(ASM_FILES:.s=.o)
-NASM_FLAGS = -f elf64   
+NASM_FLAGS = -f elf64   -g
 TEST_PROGRAM = program
 
 # Static lib rule
@@ -16,7 +16,7 @@ $(NAME): $(OBJ_FILES)
 
 # Test Rule
 program: $(NAME) main.o
-	gcc -no-pie -o $(TEST_PROGRAM) main.o -L. -lasm
+	gcc -o $(TEST_PROGRAM) main.o -L. -lasm
 
 # Compilation de main.c
 main.o: main.c
