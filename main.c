@@ -49,10 +49,10 @@ int main() {
         dup=NULL;
         printf("%s", dup);
         free(dup);
-         ft_write(1,"yolo\n",5);
+   
     void * buf ;
-        read(1, buf,50);
         
+        printf("%ld",      ft_write(1,"yolo\n",5));
     } else {
         printf("Failed to duplicate string.\n");
     }
