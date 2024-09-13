@@ -1,6 +1,11 @@
 # LibName
 NAME = libasm.a
-ASM_FILES = ft_swap.s ft_strcpy.s ft_strlen.s  ft_strcmp.s ft_write.s ft_read.s ft_strdup.s ft_bzero.s
+ASM_FILES = ft_strcpy.s \
+			ft_strlen.s \
+			ft_strcmp.s \
+			ft_write.s 	\
+			ft_read.s 	\
+			ft_strdup.s \
 # Obj filesrule
 OBJ_FILES = $(ASM_FILES:.s=.o)
 NASM_FLAGS = -f elf64   -g

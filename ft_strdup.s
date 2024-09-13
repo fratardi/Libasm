@@ -31,9 +31,9 @@ copy_loop:
 	ret               					; Retourner avec le nouveau pointeur (rax)
 
 malloc_fail:
-	mov rbx , rax;
-	neg rax;
+	mov rbx , rax;						; met la valeur de retour de malloc dans rbx
+	neg rax;							; negatifie rax
 	call __errno_location wrt ..plt		; Obtenir l'adresse de errno
-	mov [rax], ebx                   	; Stocker la valeur de l'erreur (64 bits) dans errno sur 32 c'est [eax], eax
+	mov [rax], rbx                   	; Stocker la valeur de l'erreur (64 bits) dans errno sur 32 c'est [eax], eax
 	mov rax, -1							; Retourner -1 pour indiquer l'erreur
 	ret
