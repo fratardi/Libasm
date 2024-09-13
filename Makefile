@@ -8,7 +8,7 @@ ASM_FILES = ft_strlen.s \
 			ft_strdup.s \
 # Obj filesrule
 OBJ_FILES = $(ASM_FILES:.s=.o)
-NASM_FLAGS = -f elf64   -g
+NASM_FLAGS = -f elf64
 TEST_PROGRAM = program
 
 # Static lib rule

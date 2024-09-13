@@ -2,7 +2,7 @@
 
 ### 0. **TestCommandes**
 ```bash
-../libasmjess/test > testJessy && ./program > testFrancois && vimdiff testJessy testFrancois
+BEWARE GUYS SOME STUFF might be inaccurate
 ```
 
 ### 1. **Instructions de transfert de donnees**
