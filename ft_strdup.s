@@ -7,14 +7,14 @@ section .text
 ft_strdup:
 	push rdi          					; Sauvegarder RDI qui contient le pointeur de la chaine source
 										; Appeler ft_strlen pour obtenir la longueur de la chaine source
-	call ft_strlen    					; La chaine source est dejà dans RDI le retour de ft_strlen va dans rax
-	mov rcx, rax      					; RCX = longueur de la chaine retournee par ft_strlen pour reutiliser rax
+	call ft_strlen						;
+	inc rax; 							; La chaine source est dejà dans RDI le retour de ft_strlen va dans rax
+	     								; RCX = longueur de la chaine retournee par ft_strlen pour reutiliser rax
 										; Allouer de la memoire pour la nouvelle chaine (+1 pour le caractere nul)
-	inc rcx           					; RCX = RCX + 1
-	mov rdi, rcx      					; RDI = nouvelle taille pour malloc
+	mov rdi, rax     					; RDI = nouvelle taille pour malloc
 	call malloc  wrt ..plt     			; Allouer de la memoire avec comme remier parametre rdi
-	test rax, rax     					; Verifier si malloc a reussi rax etant la valeur de retour du malloc
-	jz malloc_fail    					; Aller à malloc_fail si RAX est NULL (Flag de retour de test)
+	cmp rax, 0     						; Verifier si malloc a reussi rax etant la valeur de retour du malloc
+	je malloc_fail    					; Aller à malloc_fail si RAX est NULL (Flag de retour de test)
 										; RAX contient maintenant le pointeur vers la nouvelle memoire
 	mov rdi, rax      					; RDI = pointeur de destination (nouvelle memoire)
 	pop rsi           					; RSI = restaurer le pointeur de la chaine source

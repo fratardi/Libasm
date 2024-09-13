@@ -1,3 +1,10 @@
+
+
+### 0. **TestCommandes**
+```bash
+../libasmjess/test > testJessy && ./program > testFrancois && vimdiff testJessy testFrancois
+```
+
 ### 1. **Instructions de transfert de donnees**
 
 Ces instructions deplacent des donnees entre les registres, la memoire et les constantes immediates.

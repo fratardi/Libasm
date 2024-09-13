@@ -1,0 +1,6 @@
+{
+    "files.associations": {
+        "*.s": "nasm",
+        "string.h": "c"
+    }
+}
