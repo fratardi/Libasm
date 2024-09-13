@@ -16,8 +16,6 @@ size_t   ft_read(int fd, void *buf, int len);
 size_t   ft_write(int fd, void *buf, int len);
 int      ft_strcmp(const char *s1, const char*s2);
 
-
-
 int test_strcpy(char *src, char *dest) {
     ft_strcpy(src, dest);
     printf("Test strcpy----------------------\n");

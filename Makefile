@@ -1,7 +1,7 @@
 # LibName
 NAME = libasm.a
-ASM_FILES = ft_strcpy.s \
-			ft_strlen.s \
+ASM_FILES = ft_strlen.s \
+			ft_strcpy.s \
 			ft_strcmp.s \
 			ft_write.s 	\
 			ft_read.s 	\
