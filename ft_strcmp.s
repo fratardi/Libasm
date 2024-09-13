@@ -1,22 +1,29 @@
 section .text
 	global ft_strcmp        ; (int rax)ft_strcmp(char *s1 `rdi`, char *s2 `rsi`)
 ft_strcmp:
-	xor rax, rax            ; RAX sert d'index pour les caracteres des chaînes init rax a 0
-something_more:
-	nop;                    ; Ne fais rien est n'est pas appele no op
+	 xor rax, rax           ; RAX sert d'index pour les caracteres des chaînes init rax a 0
 loop:
-	mov dl, [rdi + rax]     ; Charge le caractere courant de la premiere chaine rdi dans dl (partie basse de rdx) rdx64  edx 32 dx 16  dh 8 dl 8
-	mov dh, [rsi + rax]     ; Charge le caractere courant de la seconde chaîne rsi dans dh
-	cmp dl, dh              ; Compare les deux caracteres charges dans  dl(s1*) et dh(s2*)
-	jne realreturn          ;regarde le cmp et jump not equal  Si les caracteres sont differents, aller a realreturn
-	test dl, dl             ; test fais un and  et set le flag a ZF (zero flag)     Verifie si le caractere est le caractere nul (fin de chaîne)
-	je ret_zero             ; Si flag = ZF (0)  jump a ret zero label
-	inc rax                 ; Incremente l'index pour passer au caractere suivant
+	mov cl, BYTE[rdi]    	; Charge le caractere courant de la premiere chaine rdi dans dl (partie basse de rdx) rdx64  edx 32 dx 16  dh 8 dl 8
+	mov dl, BYTE[rsi]     	; Charge le caractere courant de la seconde chaîne rsi dans dh
+	cmp cl, dl              ; Compare les deux caracteres charges dans  dl(s1*) et dh(s2*)
+	jne condreturn          	;regarde le cmp et jump not equal  Si les caracteres sont differents, aller a realreturn
+	cmp cl , 0;
+	je equal;
+	inc rdi;
+	inc rsi;               	; Incremente l'index pour passer au caractere suivant
 	jmp loop                ; Continue la boucle
-realreturn:
-	sub dl, dh              ; Soustrait le caractere de la seconde chaîne du caractere de la premiere chaîne
-	movsx rax, dl           ; etend le resultat a la taille de RAX avec signe
-	ret                     ; Retourne rax
-ret_zero:
+condreturn:
+	jl less; 
+	jg greater;
+	je equal;
+greater:
+	mov rax,1; 
+	ret;
+less:
+	mov rax, -1;
+	ret;
+equal:
 	xor rax, rax            ; Met RAX a zero
 	ret                     ; Retourne rax
+
+

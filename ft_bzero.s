@@ -9,5 +9,6 @@ loop:
    inc  rdi;
    mov  [rdi], al; 
    dec  rsi
+   jmp loop;
 return:
         ret;
